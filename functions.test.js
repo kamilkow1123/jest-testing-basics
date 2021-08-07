@@ -1,5 +1,31 @@
 const functions = require("./functions");
 
+// beforeEach(() => initDatabase());
+// afterEach(() => closeDatabase());
+
+beforeAll(() => initDatabase());
+afterAll(() => closeDatabase());
+
+const initDatabase = () => console.log("Database Initialized");
+const closeDatabase = () => console.log("Database Closed");
+
+// describe allows to target specific tests to e.g. run beforeEach
+const nameCheck = () => console.log("Checking Name");
+
+describe("Checking Names", () => {
+    beforeEach(() => nameCheck());
+
+    test("User is Jeff", () => {
+        const user = "Jeff";
+        expect(user).toBe("Jeff");
+    });
+
+    test("User is John", () => {
+        const user = "John";
+        expect(user).toBe("John");
+    });
+});
+
 // toBe
 test("Adds 2 + 2 to equal 4", () => {
     expect(functions.add(2, 2)).toBe(4);
@@ -66,7 +92,7 @@ test("User fetched name should be Leanne Graham", () => {
 
 // Async Await
 test("User fetched name should be Leanne Graham", async () => {
-    expect.assertions(1);
+    // expect.assertions(1); // not needed
     const data = await functions.fetchUser();
 
     expect(data.name).toEqual("Leanne Graham");
